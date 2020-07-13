@@ -19,7 +19,6 @@ def get_system_info():
     return info
 
 
-# Get distribution information
 def get_platform_info():
     info = dict()
     info["distro"] = os.popen('cat /etc/*-release | awk NR==1 | cut -c 13-').read().replace('"', '').rstrip()
@@ -76,7 +75,6 @@ def get_disk_info():
     return info
 
 
-# Get processes sorted by memory
 def get_processes():
     processes = []
     for proc in psutil.process_iter():

@@ -20,4 +20,8 @@ class AuthDto:
 
 
 class SystemDto:
-    api = Namespace('system', description='system monitor related operations')
+    api = Namespace('system', description='system monitor core related operations')
+
+
+class NetworkDto:
+    api = Namespace('network', description='system monitor network related operations')
