@@ -3,11 +3,13 @@ import unittest
 
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
+from flask_cors import CORS
 
 from app.main import create_app, db
 from app import blueprint
 
 app = create_app('dev')
+CORS(app, supports_credentials=True)
 app.register_blueprint(blueprint)
 app.app_context().push()
 
