@@ -80,7 +80,7 @@ def get_processes():
     for proc in psutil.process_iter():
         try:
             procinfo = proc.as_dict(attrs=['pid', 'name', 'username'])
-            procinfo['mem'] = proc.memory_info().rss / (1024 * 1024)
+            procinfo['mem'] = round(proc.memory_info().rss / (1024 * 1024), 2)
             processes.append(procinfo)
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
