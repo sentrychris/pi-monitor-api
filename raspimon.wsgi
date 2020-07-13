@@ -2,6 +2,6 @@
 
 import sys
 
-sys.path.insert(0, '/var/www/flaskapps')
+sys.path.insert(0, '/var/www/flaskapps/raspimon')
 
-from raspimon import app as application
+from manage import app as application
