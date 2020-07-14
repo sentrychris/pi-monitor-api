@@ -1,4 +1,4 @@
-from flask_restplus import Resource
+from flask_restx import Resource
 
 from ..util.dto import NetworkDto
 from ..service.network_service import get_network_info
