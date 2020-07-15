@@ -7,6 +7,7 @@ from ..service.system_service import get_system_info, do_system_action
 api = SystemDto.api
 _system = SystemDto.system
 
+
 @api.route('/')
 class System(Resource):
     @api.doc('system_information')

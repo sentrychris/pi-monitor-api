@@ -4,17 +4,19 @@ from .network_helper import Network
 
 
 def get_network_info():
-    info = dict()
-    info['interfaces'] = get_interface_stats()
-    info['connections'] = get_connections()
+    info = {
+        'interfaces': get_interface_stats(),
+        'connections': get_connections()
+    }
 
     return info
 
 
 def get_wifi_info():
-    info = dict()
-    info['details'] = Network.get_wifi_info()
-    info['speed'] = Network.get_wifi_speed()
+    info = {
+        'details': Network.get_wifi_info(),
+        'speed': Network.get_wifi_speed()
+    }
 
     return info
 

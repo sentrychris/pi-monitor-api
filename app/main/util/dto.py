@@ -28,3 +28,22 @@ class SystemDto:
 
 class NetworkDto:
     api = Namespace('network', description='system monitor network related operations')
+
+    details_fields = api.model('details_fields', {
+        "name": fields.String(required=True, description='Wireless SSID'),
+        "quality": fields.String(required=True, description='Wireless quality'),
+        "channel": fields.String(required=True, description='Wireless channel'),
+        "encryption": fields.String(required=True, description='Wireless encryption'),
+        "address": fields.String(required=True, description='MAC address'),
+        "signal": fields.String(required=True, description='Wireless signal')
+    })
+    speed_fields = api.model('speed_fields', {
+        "ping": fields.String(required=True, description='Ping'),
+        "download": fields.String(required=True, description='Upload speed'),
+        "upload": fields.String(required=True, description='Download speed')
+    })
+    wifi = api.model('network', {
+        'details': fields.Nested(details_fields),
+        'speed': fields.Nested(speed_fields)
+    })
+

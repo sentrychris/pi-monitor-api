@@ -36,7 +36,7 @@ class Network:
         download = re.findall(r'Download:\s(.*?)\s', speedtest, re.MULTILINE)
         upload = re.findall(r'Upload:\s(.*?)\s', speedtest, re.MULTILINE)
 
-        response = dict()
+        response = {}
         try:
             response.update({
                 'ping': ping[0].replace(',', '.'),
