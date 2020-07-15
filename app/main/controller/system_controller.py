@@ -6,16 +6,18 @@ from ..service.system_service import get_system_info, do_system_action
 
 api = SystemDto.api
 _system = SystemDto.system
+_action = SystemDto.action
 
 
 @api.route('/')
 class System(Resource):
     @api.doc('system_information')
+    @api.marshal_with(_system, envelope='data')
     def get(self):
         return get_system_info()
 
     @api.doc('Perform system shutdown or reboot.')
-    @api.expect(_system, validate=True)
+    @api.expect(_action, validate=True)
     def post(self):
         data = request.json
         return do_system_action(data=data)

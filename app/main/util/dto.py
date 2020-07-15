@@ -21,8 +21,38 @@ class AuthDto:
 
 class SystemDto:
     api = Namespace('system', description='system monitor core related operations')
-    system = api.model('system', {
+    action = api.model('system_action', {
         'action': fields.String(required=True, description='System shutdown/reboot')
+    })
+
+    cpu_fields = api.model('cpu_fields', {
+        "usage": fields.Float(description='CPU usage'),
+        "temp": fields.Float(description='CPU temperature'),
+        "freq": fields.Float(description='CPU clock rate')
+    })
+    disk_fields = api.model('disk_fields', {
+        "total": fields.Float(description='Disk total'),
+        "used": fields.Float(description='Disk used'),
+        "free": fields.Float(description='Disk free'),
+        "percent": fields.Float(description='Disk used percent')
+    })
+    platform_fields = api.model('platform_fields', {
+        "distro": fields.String(description="Current distribution"),
+        "kernel": fields.String(description="Current kernel version"),
+        "uptime": fields.String(description="System uptime")
+    })
+    processes_fields = api.model('processes_fields', {
+        "pid": fields.Integer(description='Process ID'),
+        "username": fields.String(description='Process Owner'),
+        "name": fields.String(description='Process Name'),
+        "mem": fields.Float(description='Process memory usage')
+    })
+    system = api.model('system', {
+        "cpu": fields.Nested(cpu_fields, description='CPU information'),
+        "disk": fields.Nested(disk_fields, description='Disk information'),
+        "platform": fields.Nested(platform_fields, description='Platform information'),
+        "user": fields.String(description='Current user'),
+        "processes": fields.List(fields.Nested(processes_fields), description='Running processes')
     })
 
 
@@ -30,20 +60,20 @@ class NetworkDto:
     api = Namespace('network', description='system monitor network related operations')
 
     details_fields = api.model('details_fields', {
-        "name": fields.String(required=True, description='Wireless SSID'),
-        "quality": fields.String(required=True, description='Wireless quality'),
-        "channel": fields.String(required=True, description='Wireless channel'),
-        "encryption": fields.String(required=True, description='Wireless encryption'),
-        "address": fields.String(required=True, description='MAC address'),
-        "signal": fields.String(required=True, description='Wireless signal')
+        "name": fields.String(description='Wireless SSID'),
+        "quality": fields.String(description='Wireless quality'),
+        "channel": fields.String(description='Wireless channel'),
+        "encryption": fields.String(description='Wireless encryption'),
+        "address": fields.String(description='MAC address'),
+        "signal": fields.String(description='Wireless signal')
     })
     speed_fields = api.model('speed_fields', {
-        "ping": fields.String(required=True, description='Ping'),
-        "download": fields.String(required=True, description='Upload speed'),
-        "upload": fields.String(required=True, description='Download speed')
+        "ping": fields.String(description='Ping'),
+        "download": fields.String(description='Upload speed'),
+        "upload": fields.String(description='Download speed')
     })
     wifi = api.model('network', {
-        'details': fields.Nested(details_fields),
-        'speed': fields.Nested(speed_fields)
+        'details': fields.Nested(details_fields, description='Wifi details'),
+        'speed': fields.Nested(speed_fields, description='Wifi speed')
     })
 
