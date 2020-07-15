@@ -4,17 +4,17 @@ import subprocess
 interface = "wlan0"
 
 
-class Network:
+class Wifi:
     @staticmethod
     def get_wifi_info():
         cells = [[]]
-        parsed_cells = []
+        info = {}
 
         proc = subprocess.Popen(["iwlist", interface, "scan"], stdout=subprocess.PIPE, universal_newlines=True)
         out, err = proc.communicate()
 
         for line in out.split("\n"):
-            cell_line = Network.match(line, "Cell ")
+            cell_line = Wifi.match(line, "Cell ")
             if cell_line is not None:
                 cells.append([])
                 line = cell_line[-27:]
@@ -23,9 +23,9 @@ class Network:
         cells = cells[1:]
 
         for cell in cells:
-            parsed_cells.append(Network.parse_cell(cell))
+            info.update(Wifi.parse_cell(cell))
 
-        return parsed_cells
+        return info
 
     @staticmethod
     def get_wifi_speed():
@@ -50,31 +50,31 @@ class Network:
 
     @staticmethod
     def get_name(cell):
-        return Network.matching_line(cell, "ESSID:")[1:-1]
+        return Wifi.matching_line(cell, "ESSID:")[1:-1]
 
     @staticmethod
     def get_quality(cell):
-        quality = Network.matching_line(cell, "Quality=").split()[0].split('/')
+        quality = Wifi.matching_line(cell, "Quality=").split()[0].split('/')
         return str(int(round(float(quality[0]) / float(quality[1]) * 100))).rjust(3)
 
     @staticmethod
     def get_channel(cell):
-        return Network.matching_line(cell, "Channel:")
+        return Wifi.matching_line(cell, "Channel:")
 
     @staticmethod
     def get_signal_level(cell):
-        return Network.matching_line(cell, "Quality=").split("Signal level=")[1]
+        return Wifi.matching_line(cell, "Quality=").split("Signal level=")[1]
 
     @staticmethod
     def get_encryption(cell):
         enc = ""
-        if Network.matching_line(cell, "Encryption key:") == "off":
+        if Wifi.matching_line(cell, "Encryption key:") == "off":
             enc = "Open"
         else:
             for line in cell:
-                matching = Network.match(line, "IE:")
+                matching = Wifi.match(line, "IE:")
                 if matching is not None:
-                    wpa = Network.match(matching, "WPA Version ")
+                    wpa = Wifi.match(matching, "WPA Version ")
                     if wpa is not None:
                         enc = "WPA v." + wpa
             if enc == "":
@@ -83,12 +83,12 @@ class Network:
 
     @staticmethod
     def get_address(cell):
-        return Network.matching_line(cell, "Address: ")
+        return Wifi.matching_line(cell, "Address: ")
 
     @staticmethod
     def matching_line(lines, keyword):
         for line in lines:
-            matching = Network.match(line, keyword)
+            matching = Wifi.match(line, keyword)
             if matching is not None:
                 return matching
         return None
@@ -105,12 +105,12 @@ class Network:
     @staticmethod
     def parse_cell(cell):
         rules = {
-            "name": Network.get_name,
-            "quality": Network.get_quality,
-            "channel": Network.get_channel,
-            "encryption": Network.get_encryption,
-            "address": Network.get_address,
-            "signal": Network.get_signal_level
+            "name": Wifi.get_name,
+            "quality": Wifi.get_quality,
+            "channel": Wifi.get_channel,
+            "encryption": Wifi.get_encryption,
+            "address": Wifi.get_address,
+            "signal": Wifi.get_signal_level
         }
 
         parsed_cell = {}

@@ -1,6 +1,6 @@
 import psutil
 
-from .network_helper import Network
+from .wifi_helper import Wifi
 
 
 def get_network_info():
@@ -14,8 +14,8 @@ def get_network_info():
 
 def get_wifi_info():
     info = {
-        'details': Network.get_wifi_info(),
-        'speed': Network.get_wifi_speed()
+        'details': Wifi.get_wifi_info(),
+        'speed': Wifi.get_wifi_speed()
     }
 
     return info
