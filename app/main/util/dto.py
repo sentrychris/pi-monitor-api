@@ -15,12 +15,15 @@ class AuthDto:
     api = Namespace('auth', description='authentication related operations')
     user_auth = api.model('auth_details', {
         'email': fields.String(required=True, description='The email address'),
-        'password': fields.String(required=True, description='The user password '),
+        'password': fields.String(required=True, description='The user password'),
     })
 
 
 class SystemDto:
     api = Namespace('system', description='system monitor core related operations')
+    system = api.model('system', {
+        'action': fields.String(required=True, description='System shutdown/reboot')
+    })
 
 
 class NetworkDto:

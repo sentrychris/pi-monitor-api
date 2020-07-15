@@ -21,9 +21,9 @@ def get_system_info():
 
 def do_system_action(data):
     if data['action'] == 'reboot':
-        reboot()
+        return reboot()
     elif data['action'] == 'shutdown':
-        shutdown()
+        return shutdown()
     else:
         response_object = {
             'status': 'fail',
@@ -109,8 +109,8 @@ def get_user():
 
 
 def shutdown():
-    os.system('sudo shutdown -h now')
+    return os.system('sudo shutdown -h now')
 
 
 def reboot():
-    os.system('sudo reboot')
+    return os.system('sudo reboot')
