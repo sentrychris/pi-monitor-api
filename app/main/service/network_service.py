@@ -1,15 +1,20 @@
-import os
 import psutil
-import time
 
 from .network_helper import Network
 
 
 def get_network_info():
     info = dict()
-    info["interfaces"] = get_interface_stats()
-    info["connections"] = get_connections()
-    info["wifi"] = Network.get_wifi_info()
+    info['interfaces'] = get_interface_stats()
+    info['connections'] = get_connections()
+
+    return info
+
+
+def get_wifi_info():
+    info = dict()
+    info['details'] = Network.get_wifi_info()
+    info['speed'] = Network.get_wifi_speed()
 
     return info
 
@@ -32,37 +37,12 @@ def get_interface_stats():
 
 def get_connections():
     connections = dict()
-
+    connections['ssh'] = []
     for sconn in psutil.net_connections(kind='inet'):
         if sconn.laddr.port == 22 and sconn.status == 'ESTABLISHED':
-            connections["ssh"] = {
-                "local_port": sconn.laddr.port,
-                "remote_ip": sconn.raddr.ip,
-            }
+            connections['ssh'].append({
+                'local_port': sconn.laddr.port,
+                'remote_ip': sconn.raddr.ip,
+            })
 
     return connections
-
-
-def stream_connection(interface):
-    ul = 0.00
-    dl = 0.00
-    t0 = time.time()
-    upload = psutil.net_io_counters(pernic=True)[interface].bytes_sent
-    download = psutil.net_io_counters(pernic=True)[interface].bytes_recv
-    up_down = (upload, download)
-    while True:
-        last_up_down = up_down
-        upload = psutil.net_io_counters(pernic=True)[interface].bytes_sent
-        download = psutil.net_io_counters(pernic=True)[interface].bytes_recv
-        t1 = time.time()
-        up_down = (upload, download)
-        try:
-            ul, dl = [(now - last) / (t1 - t0) / 1024.0
-                      for now, last in zip(up_down, last_up_down)]
-            t0 = time.time()
-        except Exception:
-            pass
-        if dl > 0.1 or ul >= 0.1:
-            time.sleep(0.75)
-            os.system('clear')
-            yield 'UL: {:0.2f} kB/s \n'.format(ul) + 'DL: {:0.2f} kB/s '.format(dl)

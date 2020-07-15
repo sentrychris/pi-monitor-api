@@ -1,3 +1,4 @@
+import re
 import subprocess
 
 interface = "wlan0"
@@ -25,6 +26,27 @@ class Network:
             parsed_cells.append(Network.parse_cell(cell))
 
         return parsed_cells
+
+    @staticmethod
+    def get_wifi_speed():
+        speedtest = subprocess.Popen('/usr/local/bin/speedtest-cli --simple', shell=True,
+                                     stdout=subprocess.PIPE).stdout.read().decode('utf-8')
+
+        ping = re.findall(r'Ping:\s(.*?)\s', speedtest, re.MULTILINE)
+        download = re.findall(r'Download:\s(.*?)\s', speedtest, re.MULTILINE)
+        upload = re.findall(r'Upload:\s(.*?)\s', speedtest, re.MULTILINE)
+
+        response = dict()
+        try:
+            response.update({
+                'ping': ping[0].replace(',', '.'),
+                'download': download[0].replace(',', '.'),
+                'upload': upload[0].replace(',', '.')
+            })
+        except Exception:
+            pass
+
+        return response
 
     @staticmethod
     def get_name(cell):
