@@ -43,7 +43,7 @@ def get_connections():
     return connections
 
 
-def counter(interface):
+def stream_connection(interface):
     ul = 0.00
     dl = 0.00
     t0 = time.time()

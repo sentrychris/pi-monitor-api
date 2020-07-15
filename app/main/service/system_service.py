@@ -19,6 +19,20 @@ def get_system_info():
     return info
 
 
+def do_system_action(data):
+    if data['action'] == 'reboot':
+        reboot()
+    elif data['action'] == 'shutdown':
+        shutdown()
+    else:
+        response_object = {
+            'status': 'fail',
+            'message': 'Invalid action provided, please try again.',
+        }
+
+        return response_object, 400
+
+
 def get_platform_info():
     info = dict()
     info["distro"] = os.popen('cat /etc/*-release | awk NR==1 | cut -c 13-').read().replace('"', '').rstrip()
