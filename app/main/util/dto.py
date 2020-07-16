@@ -59,6 +59,10 @@ class SystemDto:
 class NetworkDto:
     api = Namespace('network', description='system monitor network related operations')
 
+    ping = api.model('ping', {
+        "status": fields.String(description='Network connection status'),
+    })
+
     details_fields = api.model('details_fields', {
         "name": fields.String(description='Wireless SSID'),
         "quality": fields.String(description='Wireless quality'),

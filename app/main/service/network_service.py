@@ -3,6 +3,14 @@ import psutil
 from .wifi_helper import Wifi
 
 
+def get_network_status():
+    response = {
+        'status': 'connected'
+    }
+
+    return response
+
+
 def get_network_info():
     info = {
         'interfaces': get_interface_stats(),
