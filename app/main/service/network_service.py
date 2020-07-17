@@ -21,12 +21,11 @@ def get_network_info():
 
 
 def get_wifi_info():
-    info = {
-        'details': Wifi.get_wifi_info(),
-        'speed': Wifi.get_wifi_speed()
-    }
+    return Wifi.get_wifi_info()
 
-    return info
+
+def get_wifi_speed():
+    return Wifi.get_wifi_speed()
 
 
 def get_interface_stats():

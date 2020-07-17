@@ -59,6 +59,32 @@ class SystemDto:
 class NetworkDto:
     api = Namespace('network', description='system monitor network related operations')
 
+    interface_fields = api.model('interface_fields', {
+        "mb_sent": fields.Float(description='Megabytes sent'),
+        "mb_received": fields.Float(description='Megabytes received'),
+        "pk_sent": fields.Float(description='Packets sent'),
+        "pk_received": fields.Float(description='Packets received'),
+        "error_in": fields.Float(description='Errors in'),
+        "error_out": fields.Float(description='Errors out'),
+        "dropout": fields.Float(description='Dropout rate')
+    })
+    interfaces = api.model('interfaces', {
+        'wlan0': fields.Nested(interface_fields, description='Wireless LAN'),
+        'eth0': fields.Nested(interface_fields, description='Ethernet'),
+        'lo': fields.Nested(interface_fields, description='Loopback')
+    })
+    ssh_fields = api.model('ssh_fields', {
+        'local_port': fields.Integer(description='Local port'),
+        'remote_ip': fields.String(description='Remote IP')
+    })
+    connections = api.model('connections_fields', {
+        "ssh": fields.List(fields.Nested(ssh_fields), description='Remote SSH connections')
+    })
+    network = api.model('network', {
+        'interfaces': fields.Nested(interfaces, description='Network interfaces'),
+        'connections': fields.Nested(connections, description='Connections')
+    })
+
     ping = api.model('ping', {
         "status": fields.String(description='Network connection status'),
     })
@@ -76,8 +102,7 @@ class NetworkDto:
         "download": fields.String(description='Upload speed'),
         "upload": fields.String(description='Download speed')
     })
-    wifi = api.model('network', {
+    wifi = api.model('wifi', {
         'details': fields.Nested(details_fields, description='Wifi details'),
-        'speed': fields.Nested(speed_fields, description='Wifi speed')
     })
 

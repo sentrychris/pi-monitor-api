@@ -35,7 +35,7 @@ def do_system_action(data):
 
 def get_platform_info():
     info = dict()
-    info["distro"] = os.popen('cat /etc/*-release | awk NR==1 | cut -c 13-').read().replace('"', '').rstrip()
+    info["distro"] = os.popen('cat /etc/*-release | awk NR==1 | cut -c 12-').read().replace('"', '').rstrip()
     info["kernel"] = platform.release()
 
     return info
@@ -72,7 +72,7 @@ def get_system_uptime():
 def get_cpu_info():
     info = dict()
     info['usage'] = round(psutil.cpu_percent(interval=1), 2)
-    info["temp"] = round(psutil.sensors_temperatures()['cpu-thermal'][0].current, 2)
+    info["temp"] = round(psutil.sensors_temperatures()['coretemp'][0].current, 2)
     info['freq'] = round(psutil.cpu_freq().current, 2)
 
     return info
