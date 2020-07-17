@@ -8,7 +8,7 @@ api = NetworkDto.api
 _network = NetworkDto.network
 _ping = NetworkDto.ping
 _wifi = NetworkDto.wifi
-_speed = NetworkDto.speed_fields
+_speed = NetworkDto.speed
 
 
 @api.route('/')
@@ -21,7 +21,7 @@ class Network(Resource):
 
 @api.route('/ping')
 class NetworkPing(Resource):
-    @api.doc('Ping the network.')
+    @api.doc('network_ping_information')
     @api.marshal_with(_ping)
     def get(self):
         return get_network_status()

@@ -88,21 +88,17 @@ class NetworkDto:
     ping = api.model('ping', {
         "status": fields.String(description='Network connection status'),
     })
-
-    details_fields = api.model('details_fields', {
+    speed = api.model('speed', {
+        "ping": fields.String(description='Ping'),
+        "download": fields.String(description='Upload speed'),
+        "upload": fields.String(description='Download speed')
+    })
+    wifi = api.model('wifi', {
         "name": fields.String(description='Wireless SSID'),
         "quality": fields.String(description='Wireless quality'),
         "channel": fields.String(description='Wireless channel'),
         "encryption": fields.String(description='Wireless encryption'),
         "address": fields.String(description='MAC address'),
         "signal": fields.String(description='Wireless signal')
-    })
-    speed_fields = api.model('speed_fields', {
-        "ping": fields.String(description='Ping'),
-        "download": fields.String(description='Upload speed'),
-        "upload": fields.String(description='Download speed')
-    })
-    wifi = api.model('wifi', {
-        'details': fields.Nested(details_fields, description='Wifi details'),
     })
 
