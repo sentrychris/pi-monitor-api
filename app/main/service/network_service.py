@@ -28,10 +28,16 @@ def get_wifi_speed():
     return Wifi.get_wifi_speed()
 
 
+def get_interfaces():
+    interfaces = psutil.net_if_addrs()
+
+    return [*interfaces.keys()]
+
+
 def get_interface_stats():
     interfaces = dict()
-    for inet, stat in psutil.net_io_counters(pernic=True).items():
-        interfaces[inet] = {
+    for addr, stat in psutil.net_io_counters(pernic=True).items():
+        interfaces[addr] = {
             'mb_sent': stat.bytes_sent / (1024.0 * 1024.0),
             'mb_received': stat.bytes_recv / (1024.0 * 1024.0),
             'pk_sent': stat.packets_sent,

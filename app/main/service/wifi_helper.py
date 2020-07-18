@@ -1,15 +1,13 @@
 import re
 import subprocess
 
-interface = "wlan0"
-
 
 class Wifi:
     @staticmethod
     def get_wifi_info():
         cells = [[]]
         info = {}
-
+        interface = Wifi.get_wifi_interface()
         proc = subprocess.Popen(["iwlist", interface, "scan"], stdout=subprocess.PIPE, universal_newlines=True)
         out, err = proc.communicate()
 
@@ -26,6 +24,19 @@ class Wifi:
             info.update(Wifi.parse_cell(cell))
 
         return info
+
+    @staticmethod
+    def get_wifi_interface():
+        proc = subprocess.Popen(['iw', 'dev'], stdout=subprocess.PIPE, universal_newlines=True)
+        out, err = proc.communicate()
+
+        interface = 'wlan0'
+        for line in out.split("\n"):
+            addr = Wifi.match(line, "Interface ")
+            if addr is not None:
+                interface = addr
+
+        return interface
 
     @staticmethod
     def get_wifi_speed():

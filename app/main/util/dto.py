@@ -1,4 +1,5 @@
-from flask_restx import Namespace, fields
+from flask_restx import Namespace, fields, marshal
+from ..service.network_service import get_interfaces
 
 
 class UserDto:
@@ -68,11 +69,11 @@ class NetworkDto:
         "error_out": fields.Float(description='Errors out'),
         "dropout": fields.Float(description='Dropout rate')
     })
-    interfaces = api.model('interfaces', {
-        'wlan0': fields.Nested(interface_fields, description='Wireless LAN'),
-        'eth0': fields.Nested(interface_fields, description='Ethernet'),
-        'lo': fields.Nested(interface_fields, description='Loopback')
-    })
+    addrs = dict()
+    for addr in get_interfaces():
+        addrs[addr] = fields.Nested(interface_fields, description='Interface ' + addr)
+    interfaces_fields = api.model('interfaces_fields', addrs)
+
     ssh_fields = api.model('ssh_fields', {
         'local_port': fields.Integer(description='Local port'),
         'remote_ip': fields.String(description='Remote IP')
@@ -81,7 +82,7 @@ class NetworkDto:
         "ssh": fields.List(fields.Nested(ssh_fields), description='Remote SSH connections')
     })
     network = api.model('network', {
-        'interfaces': fields.Nested(interfaces, description='Network interfaces'),
+        'interfaces': fields.Nested(interfaces_fields, description='Network interfaces'),
         'connections': fields.Nested(connections, description='Connections')
     })
 
@@ -101,4 +102,3 @@ class NetworkDto:
         "address": fields.String(description='MAC address'),
         "signal": fields.String(description='Wireless signal')
     })
-
