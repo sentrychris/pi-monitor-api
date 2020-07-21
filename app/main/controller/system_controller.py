@@ -63,5 +63,5 @@ class Fan(Resource):
     @api.expect(_fan, validate=True)
     def post(self):
         data = request.json
-        print(data)
+
         return set_fan(data['status'])
