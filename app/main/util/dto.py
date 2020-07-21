@@ -55,6 +55,9 @@ class SystemDto:
         "user": fields.String(description='Current user'),
         "processes": fields.List(fields.Nested(processes_fields), description='Running processes')
     })
+    fan = api.model('fan', {
+        "status": fields.String(required=True, description='Fan status')
+    })
 
 
 class NetworkDto:
@@ -69,10 +72,10 @@ class NetworkDto:
         "error_out": fields.Float(description='Errors out'),
         "dropout": fields.Float(description='Dropout rate')
     })
-    addrs = dict()
+    interfaces = dict()
     for addr in get_interfaces():
-        addrs[addr] = fields.Nested(interface_fields, description='Interface ' + addr)
-    interfaces_fields = api.model('interfaces_fields', addrs)
+        interfaces[addr] = fields.Nested(interface_fields, description='Interface ' + addr)
+    interfaces_fields = api.model('interfaces_fields', interfaces)
 
     ssh_fields = api.model('ssh_fields', {
         'local_port': fields.Integer(description='Local port'),
