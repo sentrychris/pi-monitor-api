@@ -2,7 +2,7 @@
 
 A simple API for monitoring your raspberry pi.
 
-See it in action [here!](http://pi.rowles.ch)
+See it in action [here!](https://github.com/raekw0n/raspi-mon-api)
 
 ## Installation
 
