@@ -1,4 +1,4 @@
-# RaspiMon API
+# raspi-mon-api
 
 A simple API for monitoring your raspberry pi.
 
