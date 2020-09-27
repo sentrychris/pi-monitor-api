@@ -2,7 +2,7 @@
 
 A simple API for monitoring your raspberry pi.
 
-See it in action [here!](https://github.com/raekw0n/raspi-mon)
+See it in action [here!](https://pi.rowles.ch)
 
 ## Installation
 
@@ -28,7 +28,7 @@ $ pip install -r requirements.txt
 
 ## Endpoints
 
-http://pi.rowles.ch/docs/api/
+[Documented here.](https://pi.rowles.ch)
 
 ## Apache Configuration
 Firstly, make sure you have `libapache2-mod-wsgi-py3` installed:
@@ -43,8 +43,8 @@ Then create and enable your new virtualhost configuration:
 <VirtualHost *:80>
     ServerName api.raspberrypi.local
     ServerAlias www.api.raspberrypi.local
-    WSGIScriptAlias / /var/www/flaskapps/raspimon/raspimon.wsgi
-    <Directory /var/www/flaskapps/raspimon/app>
+    WSGIScriptAlias / /var/www/flaskapps/raspi-mon-api/raspimon.wsgi
+    <Directory /var/www/flaskapps/raspi-mon-api/app>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride all
         Require all granted
@@ -61,4 +61,4 @@ $ sudo systemctl reload apache2
 
 ## License
 
-RaspiMon API is open-sourced software licensed under the MIT license.
+raspi-mon-api is open-sourced software licensed under the MIT license.
