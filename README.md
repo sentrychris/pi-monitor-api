@@ -10,22 +10,22 @@ View a client [here!](https://pi.mon.rowles.ch)
 ## Installation
 
 Clone the repository:
-```
+```sh
 $ git clone git@github.com:chrisrowles/raspi-mon-api.git
 ```
 
 Create the virtual environment:
-```
+```sh
 $ virtualenv raspi-mon-api
 ```
 
 Activate the virtual environment:
-```
+```sh
 $ source raspi-mon-api/bin/activate
 ```
 
 Install dependencies:
-```
+```sh
 $ pip install -r requirements.txt
 ```
 
@@ -34,11 +34,31 @@ $ pip install -r requirements.txt
 You'll need to do the following if you would like authentication and user management.
 
 Initialise the database and run migrations:
-```
+```sh
 $ python manage.py db init
 $ python manage.py db migrate
 $ python manage.py db upgrade
 ```
+
+---
+
+That's it! You can now run the api using the following command:
+
+```sh
+$ python manage.py run
+
+* Serving Flask app "app.main" (lazy loading)
+* Environment: development
+WARNING: This is a development server. Do not use it in a production deployment.
+Use a production WSGI server instead.
+* Debug mode: on
+* Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+* Restarting with stat
+* Debugger is active!
+* Debugger PIN: <PIN>
+```
+
+This should b
 
 ## Endpoints
 
@@ -49,7 +69,7 @@ $ python manage.py db upgrade
 ### Apache Configuration
 Firstly, make sure you have `libapache2-mod-wsgi-py3` installed:
 
-```bash
+```sh
 $ sudo apt install libapache2-mod-wsgi-py3
 ```
 
@@ -70,7 +90,7 @@ Then create and enable your new virtualhost configuration:
 </VirtualHost>
 ```
 
-```bash
+```sh
 $ sudo a2ensite api.raspberrypi.local.conf
 $ sudo systemctl reload apache2
 ```
