@@ -10,14 +10,14 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'raspi_mon_main.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DB_CONNECTION_STRING')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'raspi_mon_test.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DB_CONNECTION_STRING')
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
