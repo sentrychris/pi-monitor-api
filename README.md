@@ -1,36 +1,48 @@
-# raspi-mon-api
+# Raspberry Pi Monitor
 
-A simple API for monitoring your raspberry pi.
+View a client [here!](https://pi.mon.rowles.ch)
 
-See it in action [here!](https://pi.rowles.ch)
+## Requirements
+
+- A Raspberry Pi with at least 1GB of RAM (running a Linux distro)
+- MySQL (optional, if you want to add authentication and user management)
 
 ## Installation
 
 Clone the repository:
 ```
-$ git clone git@github.com:raekw0n/raspi-mon-api.git
+$ git clone git@github.com:chrisrowles/raspi-mon-api.git
 ```
 
 Create the virtual environment:
 ```
-$ pip virtualenv piMonitor
+$ virtualenv raspi-mon-api
 ```
 
 Activate the virtual environment:
 ```
-$ source piMonitor/bin/activate
+$ source raspi-mon-api/bin/activate
 ```
 
-Install the project's dependencies:
+Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
 
+Initialise the database and run migrations:
+```
+$ python manage.py db init
+$ python manage.py db migrate
+$ python manage.py db upgrade
+```
+
 ## Endpoints
 
-[Documented here.](https://pi.rowles.ch)
+[Documented here.](https://pi.rowles1.net)
 
-## Apache Configuration
+## Deployment
+
+### Apache Configuration
 Firstly, make sure you have `libapache2-mod-wsgi-py3` installed:
 
 ```bash
@@ -61,4 +73,4 @@ $ sudo systemctl reload apache2
 
 ## License
 
-raspi-mon-api is open-sourced software licensed under the MIT license.
+raspi-mon-api is open-source software licensed under the MIT license.
