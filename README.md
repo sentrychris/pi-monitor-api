@@ -40,9 +40,9 @@ $ python manage.py db migrate
 $ python manage.py db upgrade
 ```
 
----
+## Development Server
 
-That's it! You can now run the api using the following command:
+You can run the development server using the following command:
 
 ```sh
 $ python manage.py run
@@ -57,8 +57,6 @@ Use a production WSGI server instead.
 * Debugger is active!
 * Debugger PIN: <PIN>
 ```
-
-This should b
 
 ## Endpoints
 
