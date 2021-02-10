@@ -29,6 +29,10 @@ Install dependencies:
 $ pip install -r requirements.txt
 ```
 
+### Optional
+
+You'll need to do the following if you would like authentication and user management.
+
 Initialise the database and run migrations:
 ```
 $ python manage.py db init
