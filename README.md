@@ -11,22 +11,22 @@ View a client [here!](https://pi.mon.rowles.ch)
 
 Clone the repository:
 ```sh
-$ git clone git@github.com:chrisrowles/raspi-mon-api.git
+git clone git@github.com:chrisrowles/raspi-mon-api.git
 ```
 
 Create the virtual environment:
 ```sh
-$ virtualenv raspi-mon-api
+virtualenv raspi-mon-api
 ```
 
 Activate the virtual environment:
 ```sh
-$ source raspi-mon-api/bin/activate
+source raspi-mon-api/bin/activate
 ```
 
 Install dependencies:
 ```sh
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Optional
@@ -35,9 +35,9 @@ You'll need to do the following if you would like authentication and user manage
 
 Initialise the database and run migrations:
 ```sh
-$ python manage.py db init
-$ python manage.py db migrate
-$ python manage.py db upgrade
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
 ```
 
 export your database connection string:
@@ -50,7 +50,7 @@ export DB_CONNECTION_STRING='mysql://<user>:<password>@<host>/<database>
 You can run the development server using the following command:
 
 ```sh
-$ python manage.py run
+python manage.py run
 
 * Serving Flask app "app.main" (lazy loading)
 * Environment: development
@@ -73,7 +73,7 @@ Use a production WSGI server instead.
 Firstly, make sure you have `libapache2-mod-wsgi-py3` installed:
 
 ```sh
-$ sudo apt install libapache2-mod-wsgi-py3
+sudo apt install libapache2-mod-wsgi-py3
 ```
 
 Then create and enable your new virtualhost configuration:
@@ -94,10 +94,10 @@ Then create and enable your new virtualhost configuration:
 ```
 
 ```sh
-$ sudo a2ensite api.raspberrypi.local.conf
-$ sudo systemctl reload apache2
+sudo a2ensite api.raspberrypi.local.conf
+sudo systemctl reload apache2
 ```
 
 ## License
 
-raspi-mon-api is open-source software licensed under the MIT license.
+Raspberry Pi Monitor is open-source software licensed under the MIT license.
