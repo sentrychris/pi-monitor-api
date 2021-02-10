@@ -40,6 +40,11 @@ $ python manage.py db migrate
 $ python manage.py db upgrade
 ```
 
+export your database connection string:
+```sh
+export DB_CONNECTION_STRING='mysql://<user>:<password>@<host>/<database>
+```
+
 ## Development Server
 
 You can run the development server using the following command:
