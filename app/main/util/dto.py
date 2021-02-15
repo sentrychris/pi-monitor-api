@@ -37,6 +37,12 @@ class SystemDto:
         "free": fields.Float(description='Disk free'),
         "percent": fields.Float(description='Disk used percent')
     })
+    mem_fields = api.model('mem_fields', {
+        "total": fields.Float(description='Mem total'),
+        "used": fields.Float(description='Mem used'),
+        "free": fields.Float(description='Mem free'),
+        "percent": fields.Float(description='Mem used percent')
+    })
     platform_fields = api.model('platform_fields', {
         "distro": fields.String(description="Current distribution"),
         "kernel": fields.String(description="Current kernel version"),
@@ -50,6 +56,7 @@ class SystemDto:
     })
     system = api.model('system', {
         "cpu": fields.Nested(cpu_fields, description='CPU information'),
+        "mem": fields.Nested(mem_fields, description='Memory information'),
         "disk": fields.Nested(disk_fields, description='Disk information'),
         "platform": fields.Nested(platform_fields, description='Platform information'),
         "user": fields.String(description='Current user'),

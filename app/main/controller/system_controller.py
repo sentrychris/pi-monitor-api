@@ -2,13 +2,14 @@ from flask import request
 from flask_restx import Resource
 
 from ..util.dto import SystemDto
-from ..service.system_service import get_system_info, do_system_action, get_cpu_info, get_disk_info, get_processes
+from ..service.system_service import get_system_info, do_system_action, get_cpu_info, get_disk_info, get_mem_info, get_processes
 
 api = SystemDto.api
 
 _system = SystemDto.system
 _action = SystemDto.action
 _cpu = SystemDto.cpu_fields
+_mem = SystemDto.mem_fields
 _disk = SystemDto.disk_fields
 _processes = SystemDto.processes_fields
 
@@ -41,6 +42,13 @@ class Disk(Resource):
     @api.marshal_with(_disk, envelope='data')
     def get(self):
         return get_disk_info()
+
+@api.route('/mem')
+class Mem(Resource):
+    @api.doc('memory_information')
+    @api.marshal_with(_mem, envelope='data')
+    def get(self):
+        return get_mem_info()
 
 
 @api.route('/processes')

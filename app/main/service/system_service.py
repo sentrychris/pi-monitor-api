@@ -8,6 +8,7 @@ def get_system_info():
     info = dict()
     info["cpu"] = get_cpu_info()
     info["disk"] = get_disk_info()
+    info["mem"] = get_mem_info()
     info["platform"] = get_platform_info()
     info["platform"]["uptime"] = get_system_uptime()
     info["user"] = get_user()
@@ -88,6 +89,16 @@ def get_disk_info():
 
     return info
 
+
+def get_mem_info():
+    info = dict()
+    mem = psutil.virtual_memory()
+    info["total"] = round(mem.total / (1024.0 ** 3), 2)
+    info["used"] = round(mem.used / (1024.0 ** 3), 2)
+    info["free"] = round(mem.free / (1024.0 ** 3), 2)
+    info["percent"] = mem.percent
+
+    return info
 
 def get_processes():
     processes = []

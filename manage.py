@@ -9,7 +9,15 @@ from app.main import create_app, db
 from app import blueprint
 
 app = create_app('dev')
-CORS(app, supports_credentials=True)
+
+config = {
+  'origins': [
+    'https://pi.mon.rowles.ch',
+    'http://192.168.1.100:8080',
+  ],
+}
+
+CORS(app, resources={ r'/*': {'origins': config['origins']}}, supports_credentials=True)
 app.register_blueprint(blueprint)
 app.app_context().push()
 
