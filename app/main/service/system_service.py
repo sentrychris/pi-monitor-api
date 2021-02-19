@@ -5,19 +5,19 @@ import psutil
 
 
 def get_system_info():
-    info = dict()
-    info["cpu"] = get_cpu_info()
-    info["disk"] = get_disk_info()
-    info["mem"] = get_mem_info()
-    info["platform"] = get_platform_info()
-    info["platform"]["uptime"] = get_system_uptime()
-    info["user"] = get_user()
-    info["processes"] = []
+    system = dict()
+    system["cpu"] = get_cpu_info()
+    system["disk"] = get_disk_info()
+    system["mem"] = get_mem_info()
+    system["platform"] = get_platform_info()
+    system["platform"]["uptime"] = get_system_uptime()
+    system["user"] = get_user()
+    system["processes"] = []
     processes = get_processes()
     for process in processes[:10]:
-        info["processes"].append(process)
+        system["processes"].append(process)
 
-    return info
+    return system
 
 
 def do_system_action(data):
@@ -35,11 +35,10 @@ def do_system_action(data):
 
 
 def get_platform_info():
-    info = dict()
-    info["distro"] = os.popen('cat /etc/*-release | awk NR==1 | cut -c 13-').read().replace('"', '').rstrip()
-    info["kernel"] = platform.release()
-
-    return info
+    return {
+        'distro': os.popen('cat /etc/*-release | awk NR==1 | cut -c 13-').read().replace('"', '').rstrip(),
+        'kernel': platform.release()
+    }
 
 
 def get_system_uptime():
@@ -71,46 +70,45 @@ def get_system_uptime():
 
 
 def get_cpu_info():
-    info = dict()
-    info['usage'] = round(psutil.cpu_percent(interval=1), 2)
-    info["temp"] = round(psutil.sensors_temperatures()['cpu_thermal'][0].current, 2)
-    info['freq'] = round(psutil.cpu_freq().current, 2)
-
-    return info
+    return {
+        'usage': round(psutil.cpu_percent(interval=1), 2),
+        'temp': round(psutil.sensors_temperatures()['cpu_thermal'][0].current, 2),
+        'freq': round(psutil.cpu_freq().current, 2)
+    }
 
 
 def get_disk_info():
-    info = dict()
     disk = psutil.disk_usage('/')
-    info["total"] = round(disk.total / (1024.0 ** 3), 2)
-    info["used"] = round(disk.used / (1024.0 ** 3), 2)
-    info["free"] = round(disk.free / (1024.0 ** 3), 2)
-    info["percent"] = disk.percent
 
-    return info
+    return {
+        'total': round(disk.total / (1024.0 ** 3), 2),
+        'used': round(disk.used / (1024.0 ** 3), 2),
+        'free': round(disk.free / (1024.0 ** 3), 2),
+        'percent': disk.percent
+    }
 
 
 def get_mem_info():
-    info = dict()
     mem = psutil.virtual_memory()
-    info["total"] = round(mem.total / (1024.0 ** 3), 2)
-    info["used"] = round(mem.used / (1024.0 ** 3), 2)
-    info["free"] = round(mem.free / (1024.0 ** 3), 2)
-    info["percent"] = mem.percent
 
-    return info
+    return {
+        'total': round(mem.total / (1024.0 ** 3), 2),
+        'used': round(mem.used / (1024.0 ** 3), 2),
+        'free': round(mem.free / (1024.0 ** 3), 2),
+        'percent': mem.percent
+    }
 
 def get_processes():
     processes = []
     for proc in psutil.process_iter():
         try:
-            procinfo = proc.as_dict(attrs=['pid', 'name', 'username'])
-            procinfo['mem'] = round(proc.memory_info().rss / (1024 * 1024), 2)
-            processes.append(procinfo)
+            process = proc.as_dict(attrs=['pid', 'name', 'username'])
+            process['mem'] = round(proc.memory_info().rss / (1024 * 1024), 2)
+            processes.append(process)
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
 
-    processes = sorted(processes, key=lambda procobj: procobj['mem'], reverse=True)
+    processes = sorted(processes, key=lambda sort: sort['mem'], reverse=True)
 
     return processes
 

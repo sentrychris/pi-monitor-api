@@ -17,7 +17,7 @@ _processes = SystemRepresentation.processes_fields
 
 @api.route('/')
 class System(Resource):
-    @token_required
+
     @api.doc('system_information')
     @api.marshal_with(_system, envelope='data')
     def get(self):
@@ -51,7 +51,6 @@ class Disk(Resource):
 
 @api.route('/mem')
 class Mem(Resource):
-    @token_required
     @api.doc('memory_information')
     @api.marshal_with(_mem, envelope='data')
     def get(self):

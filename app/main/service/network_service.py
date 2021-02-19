@@ -4,20 +4,16 @@ from app.main.service.wifi_service import *
 
 
 def get_network_status():
-    response = {
+    return {
         'status': 'connected'
     }
 
-    return response
-
 
 def get_network_info():
-    info = {
+    return {
         'interfaces': get_interface_stats(),
         'connections': get_connections()
     }
-
-    return info
 
 
 def get_wifi_info():
