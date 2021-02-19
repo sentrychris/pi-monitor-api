@@ -1,6 +1,6 @@
 import psutil
 
-from app.main.service.wifi_helper import Wifi
+from app.main.service.wifi_service import *
 
 
 def get_network_status():
@@ -21,11 +21,11 @@ def get_network_info():
 
 
 def get_wifi_info():
-    return Wifi.get_wifi_info()
+    return parse_wifi_info()
 
 
 def get_wifi_speed():
-    return Wifi.get_wifi_speed()
+    return run_wifi_speedtest()
 
 
 def get_interfaces():

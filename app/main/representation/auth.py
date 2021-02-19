@@ -7,9 +7,14 @@ class AuthRepresentation:
         'email': fields.String(required=True, description='The email address'),
         'password': fields.String(required=True, description='The user password'),
     })
+    user_fields = api.model('user_fields', {
+        'user_id': fields.String(description='The user ID'),
+        'email': fields.String(description='The user email address'),
+        'admin': fields.String(description='Is user admin'),
+        'registered_on': fields.String(description='Date user registered'),
+        'token': fields.String(description='User authentication token')
+    })
     auth_details = api.model('user_auth', {
-        'user_id': fields.String(required=True, description='The user ID'),
-        'email': fields.String(required=True, description='The user email address'),
-        'admin': fields.String(required=True, description='Is user admin'),
-        'registered_on': fields.String(required=True, description='Date user registered'),
+        'status': fields.String(description='Status'),
+        'data': fields.Nested(user_fields, description='User details'),
     })

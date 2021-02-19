@@ -2,6 +2,7 @@ from flask_restx import Resource
 
 from app.main.service.network_service import *
 from app.main.representation.network import NetworkRepresentation
+from app.main.util.decorator import token_required
 
 api = NetworkRepresentation.api
 _network = NetworkRepresentation.network
@@ -12,6 +13,7 @@ _speed = NetworkRepresentation.speed
 
 @api.route('/')
 class Network(Resource):
+    @token_required
     @api.doc('network_information')
     @api.marshal_with(_network, envelope='data')
     def get(self):
@@ -20,6 +22,7 @@ class Network(Resource):
 
 @api.route('/ping')
 class NetworkPing(Resource):
+    @token_required
     @api.doc('network_ping_information')
     @api.marshal_with(_ping)
     def get(self):
@@ -28,6 +31,7 @@ class NetworkPing(Resource):
 
 @api.route('/interfaces')
 class NetworkInterfaces(Resource):
+    @token_required
     @api.doc('network_interfaces_information')
     def get(self):
         return get_interfaces()
@@ -35,6 +39,7 @@ class NetworkInterfaces(Resource):
 
 @api.route('/wifi')
 class NetworkWifi(Resource):
+    @token_required
     @api.doc('network_wifi_information')
     @api.marshal_with(_wifi, envelope='data')
     def get(self):
@@ -43,6 +48,7 @@ class NetworkWifi(Resource):
 
 @api.route('/wifi/speed')
 class NetworkWifiSpeed(Resource):
+    @token_required
     @api.doc('network_wifi_speed_information')
     @api.marshal_with(_speed, envelope='data')
     def get(self):
