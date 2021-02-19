@@ -3,7 +3,7 @@ from flask_restx import Resource
 
 from app.main.service.auth_service import *
 from app.main.representation.auth import AuthRepresentation
-from app.main.util.decorator import token_required
+from app.main.decorator.auth_decorator import token_required
 
 api = AuthRepresentation.api
 user_auth = AuthRepresentation.user_auth

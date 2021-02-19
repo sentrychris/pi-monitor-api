@@ -3,7 +3,7 @@ from flask_restx import Resource
 
 from app.main.service.system_service import *
 from app.main.representation.system import SystemRepresentation
-from app.main.util.decorator import token_required
+from app.main.decorator.auth_decorator import token_required
 
 api = SystemRepresentation.api
 
