@@ -1,6 +1,5 @@
-from .. import db
 import datetime
-
+from app.main import db
 
 class BlacklistToken(db.Model):
     __tablename__ = 'blacklist_tokens'

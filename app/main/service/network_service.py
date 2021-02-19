@@ -1,6 +1,6 @@
 import psutil
 
-from .wifi_helper import Wifi
+from app.main.service.wifi_helper import Wifi
 
 
 def get_network_status():

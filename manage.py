@@ -12,8 +12,9 @@ app = create_app('dev')
 
 config = {
   'origins': [
-    'https://pi.mon.rowles.ch',
-    'http://192.168.1.100:8080',
+      'http://pi.mon',
+      'https://pi.mon.rowles.ch',
+      'http://192.168.1.100:8080',
   ],
 }
 

@@ -1,15 +1,13 @@
 from flask_restx import Resource
 
-from ..util.dto import NetworkDto
-from ..service.network_service import get_network_info, get_network_status, get_interfaces, \
-    get_wifi_info, get_wifi_speed
+from app.main.service.network_service import *
+from app.main.representation.network import NetworkRepresentation
 
-api = NetworkDto.api
-
-_network = NetworkDto.network
-_ping = NetworkDto.ping
-_wifi = NetworkDto.wifi
-_speed = NetworkDto.speed
+api = NetworkRepresentation.api
+_network = NetworkRepresentation.network
+_ping = NetworkRepresentation.ping
+_wifi = NetworkRepresentation.wifi
+_speed = NetworkRepresentation.speed
 
 
 @api.route('/')

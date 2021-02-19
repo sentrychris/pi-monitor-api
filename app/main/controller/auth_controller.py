@@ -2,10 +2,11 @@ from flask import request
 from flask_restx import Resource
 
 from app.main.service.auth_helper import Auth
-from ..util.dto import AuthDto
+from app.main.representation.auth import AuthRepresentation
 
-api = AuthDto.api
-user_auth = AuthDto.user_auth
+api = AuthRepresentation.api
+user_auth = AuthRepresentation.user_auth
+auth_details = AuthRepresentation.auth_details
 
 
 @api.route('/login')
@@ -17,9 +18,18 @@ class UserLogin(Resource):
         return Auth.login_user(data=post_data)
 
 
+@api.route('/verify')
+class UserVerify(Resource):
+    @api.doc('user verify')
+    @api.marshal_with(auth_details, envelope='data')
+    def get(self):
+        auth_header = request.headers.get('Authorization')
+        return Auth.verify_user(token=auth_header)
+
+
 @api.route('/logout')
-class LogoutAPI(Resource):
+class UserLogout(Resource):
     @api.doc('logout a user')
     def post(self):
         auth_header = request.headers.get('Authorization')
-        return Auth.logout_user(data=auth_header)
+        return Auth.logout_user(token=auth_header)
