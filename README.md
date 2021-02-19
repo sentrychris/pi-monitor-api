@@ -98,6 +98,14 @@ sudo a2ensite api.raspberrypi.local.conf
 sudo systemctl reload apache2
 ```
 
+#### Optional
+
+If you want to enable authentication for user management, you'll need to add the following line to either your apache or virtualhost configuration:
+
+```sh
+WSGIPassAuthorization On
+```
+
 ## License
 
 Raspberry Pi Monitor is open-source software licensed under the MIT license.
