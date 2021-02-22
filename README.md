@@ -1,4 +1,4 @@
-# RaspiMon API
+# Pi Monitor API
 
 View a client [here!](https://pi.mon.rowles.ch)
 
