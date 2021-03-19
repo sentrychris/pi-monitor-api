@@ -1,6 +1,6 @@
-# RaspiMon API
+# Pi Monitor API
 
-View a client [here!](https://pi.mon.rowles.ch)
+View a client [here!](https://github.com/chrisrowles/pi-monitor)
 
 ## Requirements
 
@@ -11,12 +11,12 @@ View a client [here!](https://pi.mon.rowles.ch)
 
 Clone the repository:
 ```sh
-git clone git@github.com:chrisrowles/raspi-mon-api.git
+git clone git@github.com:chrisrowles/pi-monitor-api.git
 ```
 
 Create the virtual environment:
 ```sh
-virtualenv raspi-mon-api
+virtualenv pi-monitor-api
 ```
 
 Activate the virtual environment:
@@ -65,7 +65,7 @@ Use a production WSGI server instead.
 
 ## Endpoints
 
-[Documented here.](https://pi.rowles1.net)
+[Documented here.](https://sysapi.ddns.net)
 
 ## Deployment
 
@@ -82,7 +82,7 @@ Then create and enable your new virtualhost configuration:
 <VirtualHost *:80>
     ServerName api.raspberrypi.local
     ServerAlias www.api.raspberrypi.local
-    WSGIScriptAlias / /var/www/flaskapps/raspi-mon-api/raspimon.wsgi
+    WSGIScriptAlias / /var/www/flaskapps/pi-monitor-api/api.wsgi
     <Directory /var/www/flaskapps/raspi-mon-api/app>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride all
@@ -108,4 +108,4 @@ WSGIPassAuthorization On
 
 ## License
 
-Raspberry Pi Monitor is open-source software licensed under the MIT license.
+This is open-source software licensed under the MIT license.
