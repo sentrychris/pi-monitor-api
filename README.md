@@ -1,6 +1,6 @@
 # Pi Monitor API
 
-View a client [here!](https://sysmon.ddns.net)
+View a client [here!](https://github.com/chrisrowles/pi-monitor)
 
 ## Requirements
 
