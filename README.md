@@ -16,7 +16,7 @@ git clone git@github.com:chrisrowles/pi-monitor-api.git
 
 Create the virtual environment:
 ```sh
-virtualenv raspi-mon-api
+virtualenv pi-monitor-api
 ```
 
 Activate the virtual environment:
