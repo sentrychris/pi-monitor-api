@@ -2,6 +2,6 @@
 
 import sys
 
-sys.path.insert(0, '/var/www/flaskapps/raspi-mon-api')
+sys.path.insert(0, '/var/www/flaskapps/pi-monitor-api')
 
 from manage import app as application
