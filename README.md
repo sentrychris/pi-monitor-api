@@ -21,12 +21,17 @@ virtualenv pi-monitor-api
 
 Activate the virtual environment:
 ```sh
-source raspi-mon-api/bin/activate
+source pi-monitor-api/bin/activate
 ```
 
 Install dependencies:
 ```sh
 pip install -r requirements.txt
+```
+
+Test it works:
+```sh
+python manage.py run
 ```
 
 ### Optional
