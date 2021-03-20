@@ -5,7 +5,7 @@ View a client [here!](https://github.com/chrisrowles/pi-monitor)
 ## Requirements
 
 - A Raspberry Pi with at least 1GB of RAM (running a Linux distro)
-- MySQL (optional, if you want to add authentication and user management)
+- MySQL (optional, if you want to add authentication and access control)
 
 ## Installation
 
