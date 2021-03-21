@@ -72,7 +72,7 @@ def get_system_uptime():
 def get_cpu_info():
     return {
         'usage': round(psutil.cpu_percent(interval=1), 2),
-        'temp': 99.9,
+        'temp': round(psutil.sensors_temperatures()['cpu_thermal'][0].current, 2),
         'freq': round(psutil.cpu_freq().current, 2)
     }
 
