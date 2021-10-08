@@ -38,6 +38,16 @@ python manage.py run
 
 You'll need to do the following if you would like authentication and user management.
 
+Install extra dependencies:
+```
+sudo apt install libmysqlclient-dev
+```
+
+Inside the virtualenv:
+```
+pip install mysqlclient
+```
+
 Initialise the database and run migrations:
 ```sh
 python manage.py db init
