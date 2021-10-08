@@ -10,7 +10,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:raspberry@localhost/raspimon'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:localhost@localhost/monitor'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

@@ -5,21 +5,26 @@ import subprocess
 def parse_wifi_info():
     cells = [[]]
     info = {}
-    interface = get_wifi_interface()
-    proc = subprocess.Popen(["iwlist", interface, "scan"], stdout=subprocess.PIPE, universal_newlines=True)
-    out, err = proc.communicate()
 
-    for line in out.split("\n"):
-        cell_line = match(line, "Cell ")
-        if cell_line is not None:
-            cells.append([])
-            line = cell_line[-27:]
-        cells[-1].append(line.rstrip())
+    try:
+        interface = get_wifi_interface()
+        print(interface)
+        proc = subprocess.Popen(["iwlist", interface, "scan"], stdout=subprocess.PIPE, universal_newlines=True)
+        out, err = proc.communicate()
 
-    cells = cells[1:]
+        for line in out.split("\n"):
+            cell_line = match(line, "Cell ")
+            if cell_line is not None:
+                cells.append([])
+                line = cell_line[-27:]
+            cells[-1].append(line.rstrip())
 
-    for cell in cells:
-        info.update(parse_cell(cell))
+        cells = cells[1:]
+
+        for cell in cells:
+            info.update(parse_cell(cell))
+    except Exception:
+        pass
 
     return info
 
@@ -38,7 +43,7 @@ def get_wifi_interface():
 
 
 def run_wifi_speedtest():
-    speedtest = subprocess.Popen('/usr/local/bin/speedtest-cli --simple', shell=True,
+    speedtest = subprocess.Popen('speedtest-cli --simple', shell=True,
                                  stdout=subprocess.PIPE).stdout.read().decode('utf-8')
 
     ping = re.findall(r'Ping:\s(.*?)\s', speedtest, re.MULTILINE)
