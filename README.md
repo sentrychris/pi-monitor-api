@@ -1,11 +1,13 @@
 # Pi Monitor API
 
-View a client [here!](https://github.com/chrisrowles/pi-monitor)
+View a client [here](https://github.com/chrisrowles/pi-monitor-v3).
+
+View swagger docs [here](https://raspberrypi-api.ddns.net/).
 
 ## Requirements
 
 - A Raspberry Pi with at least 1GB of RAM (running a Linux distro)
-- MySQL (optional, if you want to add authentication and access control)
+- MySQL (optional, if you want to add authentication and user access control)
 
 ## Installation
 
@@ -80,7 +82,7 @@ Use a production WSGI server instead.
 
 ## Endpoints
 
-[Documented here.](https://sysapi.ddns.net)
+[Documented here.](https://raspberrypi-api.ddns.net/)
 
 ## Deployment
 
