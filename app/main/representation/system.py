@@ -3,9 +3,6 @@ from flask_restx import Namespace, fields, marshal
 
 class SystemRepresentation:
     api = Namespace('system', description='system monitor core related operations')
-    action = api.model('system_action', {
-        'action': fields.String(required=True, description='System shutdown/reboot')
-    })
 
     cpu_fields = api.model('cpu_fields', {
         "usage": fields.Float(description='CPU usage'),

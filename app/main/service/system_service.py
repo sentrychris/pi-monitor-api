@@ -20,20 +20,6 @@ def get_system_info():
     return system
 
 
-def do_system_action(data):
-    if data['action'] == 'reboot':
-        return reboot()
-    elif data['action'] == 'shutdown':
-        return shutdown()
-    else:
-        response_object = {
-            'status': 'fail',
-            'message': 'Invalid action provided, please try again.',
-        }
-
-        return response_object, 400
-
-
 def get_platform_info():
     return {
         'distro': os.popen('cat /etc/*-release | awk NR==1 | cut -c 12-').read().replace('"', '').rstrip(),
@@ -115,11 +101,3 @@ def get_processes():
 
 def get_user():
     return pwd.getpwuid(os.getuid())[0]
-
-
-def shutdown():
-    return os.system('sudo shutdown -h now')
-
-
-def reboot():
-    return os.system('sudo reboot')
