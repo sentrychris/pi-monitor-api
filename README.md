@@ -99,8 +99,8 @@ Then create and enable your new virtualhost configuration:
 <VirtualHost *:80>
     ServerName api.raspberrypi.local
     ServerAlias www.api.raspberrypi.local
-    WSGIScriptAlias / /var/www/flaskapps/pi-monitor-api/api.wsgi
-    <Directory /var/www/flaskapps/raspi-mon-api/app>
+    WSGIScriptAlias / /var/www/pi-monitor-api/api.wsgi
+    <Directory /var/www/raspi-mon-api/app>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride all
         Require all granted
