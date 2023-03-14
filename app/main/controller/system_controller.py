@@ -24,7 +24,6 @@ class System(Resource):
 
 @api.route('/cpu')
 class Cpu(Resource):
-    @token_required
     @api.doc('cpu_information')
     @api.marshal_with(_cpu, envelope='data')
     def get(self):
@@ -33,7 +32,6 @@ class Cpu(Resource):
 
 @api.route('/disk')
 class Disk(Resource):
-    @token_required
     @api.doc('disk_information')
     @api.marshal_with(_disk, envelope='data')
     def get(self):
@@ -50,8 +48,15 @@ class Mem(Resource):
 
 @api.route('/processes')
 class Processes(Resource):
-    @token_required
     @api.doc('processes_information')
     @api.marshal_with(_processes, envelope='data')
     def get(self):
         return get_processes()
+
+
+@api.route('/banned')
+class Banned(Resource):
+    def get(self):
+        return {
+            'banned': get_ssh_banned()
+        }

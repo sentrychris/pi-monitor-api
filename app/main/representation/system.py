@@ -32,11 +32,13 @@ class SystemRepresentation:
         "name": fields.String(description='Process Name'),
         "mem": fields.Float(description='Process memory usage')
     })
+    # banned_fields = api.model('banned_fields', [fields.List(fields.String(example='192.168.54.10'))])
     system = api.model('system', {
         "cpu": fields.Nested(cpu_fields, description='CPU information'),
         "mem": fields.Nested(mem_fields, description='Memory information'),
         "disk": fields.Nested(disk_fields, description='Disk information'),
         "platform": fields.Nested(platform_fields, description='Platform information'),
         "user": fields.String(description='Current user'),
+        'banned': fields.List(fields.String(example="192.168.54.10")),
         "processes": fields.List(fields.Nested(processes_fields), description='Running processes')
     })

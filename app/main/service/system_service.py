@@ -12,6 +12,7 @@ def get_system_info():
     system["platform"] = get_platform_info()
     system["platform"]["uptime"] = get_system_uptime()
     system["user"] = get_user()
+    system["banned"] = get_ssh_banned()
     system["processes"] = []
     processes = get_processes()
     for process in processes[:10]:
@@ -73,6 +74,15 @@ def get_disk_info():
         'percent': disk.percent
     }
 
+def get_ssh_banned():
+    filename = "/var/log/banned/list.txt"
+    lines = []
+    if os.path.isfile(filename):
+        with open(filename) as file:
+            lines = [line.rstrip() for line in file]
+            print(lines)
+    
+    return lines
 
 def get_mem_info():
     mem = psutil.virtual_memory()
